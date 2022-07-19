@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
+const generatePage = require('./src/page-template');
 
 
 const employees = [];
@@ -67,14 +68,27 @@ const addEmployee = () => {
       message: 'What is the Engineers\'s GitHub username?',
       when: (answers) => answers.role === 'Engineer'
     },
+    {
+      type: 'confirm',
+      name: 'addMember',
+      message: 'Would you like to add another employee to the team?',
+      default: false
+    }
   ])
   .then(employeeData => {
     let {name, id, email, role, officeNumber, schoolName, github} = employeeData;
     employees.push(employeeData);
-    console.log(employees);
-  });
+    if (employeeData.addMember) {
+      return addEmployee(employeeData);
+    } else {
+      return(employeeData);
+    }
+  })
 };
 
 
-addEmployee();
+addEmployee()
+  .then(employeeData => {
+    return generatePage(employeeData);
+  })
 
