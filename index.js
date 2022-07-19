@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
 const generatePage = require('./src/page-template');
-
+const { writeFile, copyFile } = require('./utils/generate-site.js');
 
 const employees = [];
 
