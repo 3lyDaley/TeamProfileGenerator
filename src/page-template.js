@@ -1,50 +1,90 @@
-function generateTeam(employeeData) {
+
+const generateTeam = employeeData => {
+   return `
+  <!DOCTYPE html>
+  <html lang="en">
   
-  const teamHtml = [];
-  for(let i = 0;i < this.length; i++){
-  if(this.Manager){
-    const managerHtml = `<div class="card bg-light mb-3" style="max-width: 18rem;">
-    <div class="card-header">${this.Manager.name}</div>
-    <div class="card-body">
-      <h5 class="card-title">Manager</h5>
-      <p class="card-text">
-      Email: ${employeeData.Manager.email}<br>
-      Office Number: ${employeeData.Manager.officeNumber}
-      </p>
-    </div>`
-    teamHtml.push(managerHtml);
-    console.log(employeeData.Manager)
-  }
-  // else if(employeeData.Engineer) {
-  //   const engineerHtml = `<div class="card bg-light mb-3" style="max-width: 18rem;">
-  //   <div class="card-header">${engineer.name}</div>
-  //   <div class="card-body">
-  //     <h5 class="card-title">Engineer</h5>
-  //     <p class="card-text">
-  //     Email: ${engineer.email}<br>
-  //     GitHub Username: ${engineer.github}
-  //     </p>
-  //   </div>`
-  //   teamHtml.push(engineerHtml)
-  //   console.log(employeeData.Engineer)
-  // }
-  // else if(employeeData.Intern){
-  //   const internHtml = `<div class="card bg-light mb-3" style="max-width: 18rem;">
-  //   <div class="card-header">${intern.name}</div>
-  //   <div class="card-body">
-  //     <h5 class="card-title">Intern</h5>
-  //     <p class="card-text">
-  //     Email: ${intern.email}<br>
-  //     Attending ${intern.schoolName}
-  //     </p>
-  //   </div>`;
-  //   teamHtml.push(internHtml);
-  //   console.log(employeeData.Intern)
-  // }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous”>
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar" id="navbar">
+        <span class="navbar-brand text-center">Team Profile</span>
+      </nav>
+    </header>
+
+    <main>
+      <div class="container">
+        <div class="row justify-content-center" id="cards">
+          ${employeeData
+          .filter(({ manager }) => manager)
+          .map(({ name, id, email, officeNumber }) => {
+            return `
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">${name}</div>
+              <div class="card-body">
+                <h5 class="card-title">Manager</h5>
+                <p class="card-text">
+                  Employee id: ${id}
+                  Email: ${email}<br>
+                  Office number: ${officeNumber}
+                </p>
+              </div>
+            `;
+          })
+          .join('')}
+
+          ${employeeData
+            .filter(({ engineer }) => engineer)
+            .map(({ name, id, email, github }) => {
+              return `
+              <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">${name}</div>
+              <div class="card-body">
+                <h5 class="card-title">Intern</h5>
+                <p class="card-text">
+                  Employee id: ${id}
+                  Email: ${email}<br>
+                  Github Username: @${github}
+                </p>
+              </div>
+              `;
+            })
+            .join('')}
+              
+          ${employeeData
+            .filter(({intern}) => intern)
+            .map(({name, id, email, schoolName}) => {
+              return `
+              <div class="card bg-light mb-3" style="max-width: 18rem;">
+              <div class="card-header">${name}</div>
+              <div class="card-body">
+                <h5 class="card-title">Intern</h5>
+                <p class="card-text">
+                Employee id: ${id}
+                Email: ${email}<br>
+                Attending ${schoolName}
+                </p>
+              </div>
+              `;
+            })
+            .join('')}
+              
+        </div>
+      </div>
+    </main>
+  </body>
   
-}
-const teamInfo = teamHtml.join(' ')
-console.log(teamHtml)
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  </html>
+`
+
 }
 
 

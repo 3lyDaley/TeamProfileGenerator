@@ -44,14 +44,14 @@ const addEmployee = () => {
       message: 'What is the employee\'s email?',
       default: () => {},
       validate: email => {
-          // Regex mail check (return true if valid mail)
-          valid = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        // Regex mail check (return true if valid mail)
+        valid = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
           if(!valid) {
             console.log('Please enter a valid email to proceed.')
             return false;
           }
-          return true;
-      } 
+        return true;
+      }
     },
     {
       type: 'list',
@@ -79,47 +79,48 @@ const addEmployee = () => {
     },
     {
       type: 'confirm',
-      name: 'addMember',
+      name: 'confirmAddEmployee',
       message: 'Would you like to add another employee to the team?',
       default: false
     }
-  ])
-  .then(employeeData => {
-    let {name, id, email, role, officeNumber, schoolName, github} = employeeData;
+    ])
+    .then(employeeSpecs => {
+      let {name, id, email, role, officeNumber, github, schoolName} = employeeSpecs;
+      let manager, engineer, intern;
+      if(role === 'Manager'){
+        manager = new Manager(name, id, email, officeNumber);
 
-    if(role === 'Manager'){
-      let manager = new Manager(name, id, email, role, officeNumber);
+        employees.push(manager)
+      } else if (role === 'Engineer') {
+        engineer = new Engineer(name, id, email, github);
 
-      employees.push(manager);
+        employees.push(engineer)
+      } else {
+        intern = new Intern(name, id, email, schoolName);
+
+        employees.push(intern)
+      }
       
-    }
-    else if(role === 'Engineer') {
-      let engineer = new Engineer(name, id, email, github);
-      
-      employees.push(engineer)
-      
-    }
-    else {
-      let intern = new Intern(name, id, email, role, schoolName);
-      
-      employees.push(intern);
-    }
+      if(employeeSpecs.confirmAddEmployee) {
+        return addEmployee(employees);
+      } else {
+       return employees;
+      }
+    })
+  
+  }
     
-   employees.join(',');
-
-    if (employeeData.addMember) {
-      return addEmployee(employees);
-    } else {
-      return(employees);
-    }
-  })
-};
-
-
 addEmployee()
 .then(employees => {
-  generateTeam(employees)
-  console.log(employees)
+  console.log(employees);
+  return generateTeam(employees);
 })
+.then(pageHTML => {
+  return writeFile(pageHTML);
+})
+.catch(err => {
+  console.log(err);
+});
+
  
 
