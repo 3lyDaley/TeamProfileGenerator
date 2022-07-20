@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
-const {generateEngineer, generateManager, generateIntern, checkHTML} = require('./src/page-template');
+const {generateEngineer, generateManager, generateIntern, checkHTML, generateTeam} = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site.js');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
@@ -86,34 +86,40 @@ const addEmployee = () => {
   ])
   .then(employeeData => {
     let {name, id, email, role, officeNumber, schoolName, github} = employeeData;
-    employees.push(employeeData);
-    if(role === 'Engineer') {
-      let engineer = new Engineer(name, id, email, role, github);
 
-      generateEngineer(engineer);
-      
-    }
-    else if(role === 'Manager'){
+    if(role === 'Manager'){
       let manager = new Manager(name, id, email, role, officeNumber);
 
-      generateManager(manager);
+      employees.push(manager);
+      
+    }
+    else if(role === 'Engineer') {
+      let engineer = new Engineer(name, id, email, github);
+      
+      employees.push(engineer)
+      
     }
     else {
       let intern = new Intern(name, id, email, role, schoolName);
-
-      generateIntern(intern);
+      
+      employees.push(intern);
     }
+    
+   employees.join(',');
+
     if (employeeData.addMember) {
-      return addEmployee(employeeData);
+      return addEmployee(employees);
     } else {
-      return(employeeData);
+      return(employees);
     }
   })
 };
 
 
 addEmployee()
-  .then(employeeData => {
-    checkHTML(employeeData);
-  })
+.then(employees => {
+  generateTeam(employees)
+  console.log(employees)
+})
+ 
 
