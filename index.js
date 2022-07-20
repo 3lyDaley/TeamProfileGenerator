@@ -1,8 +1,11 @@
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
-const generatePage = require('./src/page-template');
+const {generateEngineer, generateManager, generateIntern, checkHTML} = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site.js');
+const Engineer = require('./lib/Engineer');
+const Manager = require('./lib/Manager');
+const Intern = require('./lib/Intern');
 
 const employees = [];
 
@@ -39,10 +42,16 @@ const addEmployee = () => {
       type: 'input',
       name: 'email',
       message: 'What is the employee\'s email?',
+      default: () => {},
       validate: email => {
           // Regex mail check (return true if valid mail)
-          return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
-      }
+          valid = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+          if(!valid) {
+            console.log('Please enter a valid email to proceed.')
+            return false;
+          }
+          return true;
+      } 
     },
     {
       type: 'list',
@@ -78,6 +87,22 @@ const addEmployee = () => {
   .then(employeeData => {
     let {name, id, email, role, officeNumber, schoolName, github} = employeeData;
     employees.push(employeeData);
+    if(role === 'Engineer') {
+      let engineer = new Engineer(name, id, email, role, github);
+
+      generateEngineer(engineer);
+      
+    }
+    else if(role === 'Manager'){
+      let manager = new Manager(name, id, email, role, officeNumber);
+
+      generateManager(manager);
+    }
+    else {
+      let intern = new Intern(name, id, email, role, schoolName);
+
+      generateIntern(intern);
+    }
     if (employeeData.addMember) {
       return addEmployee(employeeData);
     } else {
@@ -89,6 +114,6 @@ const addEmployee = () => {
 
 addEmployee()
   .then(employeeData => {
-    return generatePage(employeeData);
+    checkHTML(employeeData);
   })
 
