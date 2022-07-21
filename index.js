@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const path = require('path');
 const fs = require('fs');
-const {generateEngineer, generateManager, generateIntern, checkHTML, generateTeam} = require('./src/page-template');
+const {generatePage} = require('./src/page-template');
 const { writeFile, copyFile } = require('./utils/generate-site.js');
 const Engineer = require('./lib/Engineer');
 const Manager = require('./lib/Manager');
@@ -104,7 +104,7 @@ const addEmployee = () => {
       if(employeeSpecs.confirmAddEmployee) {
         return addEmployee(employees);
       } else {
-       return employees;
+      return employees;
       }
     })
   
@@ -112,9 +112,12 @@ const addEmployee = () => {
     
 addEmployee()
 .then(employees => {
-  console.log(employees);
-  return generateTeam(employees);
-})
+
+  generatePage(employees)
+  // const pageHTML = generatePage(employees)
+  // return pageHTML;
+}
+)
 .then(pageHTML => {
   return writeFile(pageHTML);
 })
