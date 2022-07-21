@@ -20,69 +20,62 @@ const generatePage = (employeeData) => {
 
   pageHtmlArr.push(head);
   console.log(employeeData)
-console.log(pageHtmlArr);
+
+
+  for(let i = 0; i < employeeData.length; i++){
+    console.log(employeeData[i])
+    let card;
+    if(employeeData[i].officeNumber) {
+      console.log('Manager')
+      card = `
+       < div class="card bg-light mb-3" style = "max-width: 18rem;" >
+    <div class="card-header">${employeeData[i].name}</div>
+    <div class="card-body">
+      <h5 class="card-title">Manager</h5>
+      <p class="card-text">
+        Employee id: ${employeeData[i].id}
+        Email: ${employeeData[i].email}<br>
+
+      </p>
+      </div>
+  
+      `;
+      pageHtmlArr.push(card);
+    } else if (employeeData[i].github) {
+      console.log('engineer')
+      card = `
+      <div class="card bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header">${employeeData[i].name}</div>
+      <div class="card-body">
+        <h5 class="card-title">Engineer</h5>
+        <p class="card-text">
+          Employee id: ${employeeData[i].id}
+          Email: ${employeeData[i].email}<br>
+          Github Username: @${employeeData[i].github}
+        </p>
+      </div>
+      `;
+      pageHtmlArr.push(card)
+    } else {
+      console.log('intern')
+      card = `
+      <div class="card bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header">${employeeData[i].name}</div>
+      <div class="card-body">
+        <h5 class="card-title">Intern</h5>
+        <p class="card-text">
+        Employee id: ${employeeData[i].id}
+        Email: ${employeeData[i].email}<br>
+        Attending ${employeeData[i].schoolName}
+        </p>
+      </div>
+      `;
+      pageHtmlArr.push(card)
+
+    }
+  }
+  console.log(pageHtmlArr)
 }
-//   for(let i = 0; i < employeeData.length; i++){
-//     if(role === 'Manager') {
-// const pageHtmlArr = employeeData.map(({name, id, email, officeNumber}) => {
-//   return `
-//   <div class="card bg-light mb-3" style="max-width: 18rem;">
-//     <div class="card-header">${name}</div>
-//     <div class="card-body">
-//       <h5 class="card-title">Manager</h5>
-//       <p class="card-text">
-//         Employee id: ${id}
-//         Email: ${email}<br>
-//         OfficeNumber: ${officeNumber}
-//       </p>
-//       </div>
-//       `;
-
-// });
-// }
-//   }
-// return `
-// ${pageHtmlArr.join('')}
-// `
-// }
-
-        
-// const generateEngineer = employeeData => {
-//   employeeData.filter(({ Engineer }) => Engineer)
-//     .map(({ name, id, email, github }) => {
-//       return `
-//       <div class="card bg-light mb-3" style="max-width: 18rem;">
-//       <div class="card-header">${name}</div>
-//       <div class="card-body">
-//         <h5 class="card-title">Intern</h5>
-//         <p class="card-text">
-//           Employee id: ${id}
-//           Email: ${email}<br>
-//           Github Username: @${github}
-//         </p>
-//       </div>
-//       `;
-//     }).join('')
-//   }
-
-      
-// const generateIntern = employeeData => {
-//   employeeData.filter(({Intern}) => Intern)
-//     .map(({name, id, email, schoolName}) => {
-//       return `
-//       <div class="card bg-light mb-3" style="max-width: 18rem;">
-//       <div class="card-header">${name}</div>
-//       <div class="card-body">
-//         <h5 class="card-title">Intern</h5>
-//         <p class="card-text">
-//         Employee id: ${id}
-//         Email: ${email}<br>
-//         Attending ${schoolName}
-//         </p>
-//       </div>
-//       `;
-//     }).join('')
-// }
 
 
 

@@ -88,7 +88,7 @@ const addEmployee = () => {
       let {name, id, email, role, officeNumber, github, schoolName} = employeeSpecs;
       let manager, engineer, intern;
       if(role === 'Manager'){
-        manager = new Manager(name, id, email, officeNumber);
+        manager = new Manager(name, id, email,  officeNumber);
 
         employees.push(manager)
       } else if (role === 'Engineer') {
@@ -118,12 +118,12 @@ addEmployee()
   // return pageHTML;
 }
 )
-.then(pageHTML => {
-  return writeFile(pageHTML);
-})
-.catch(err => {
-  console.log(err);
-});
+// .then(pageHTML => {
+//   return writeFile(pageHTML);
+// })
+// .catch(err => {
+//   console.log(err);
+// });
 
  
 
