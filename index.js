@@ -112,18 +112,18 @@ const addEmployee = () => {
     
 addEmployee()
 .then(employees => {
-
-  generatePage(employees)
-  // const pageHTML = generatePage(employees)
-  // return pageHTML;
-}
-)
-// .then(pageHTML => {
-//   return writeFile(pageHTML);
-// })
-// .catch(err => {
-//   console.log(err);
-// });
+  return generatePage(employees)
+})
+.then(pageHTML => {
+  return writeFile(pageHTML);
+})
+.then(writeFileResponse => {
+  console.log(writeFileResponse);
+  return copyFile();
+})
+.catch(err => {
+  console.log(err);
+});
 
  
 
