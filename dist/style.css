@@ -54,7 +54,7 @@ font-size: 80px;
   color:#bd2727
 }
 
-.card-text {
+.card-text, a {
   font-family: 'Montserrat', sans-serif;
   color:#a09004;
 }

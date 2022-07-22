@@ -44,7 +44,7 @@ const generatePage = (employeeData) => {
       <h5 class="card-title">Manager</h5>
       <p class="card-text">
         <span class="card-info">Employee ID:</span> ${employeeData[i].id}<br>
-          <span class="card-info">Email:</span> ${employeeData[i].email}<br>
+          <span class="card-info">Email:</span> <a href="mailto:${employeeData[i].email}">${employeeData[i].email}</a><br>
         <span class="card-info">Office Number:</span>${employeeData[i].officeNumber}
       </p>
       </div>
@@ -63,8 +63,8 @@ const generatePage = (employeeData) => {
         <h5 class="card-title">Engineer</h5>
         <p class="card-text">
           <span class="card-info">Employee ID:</span> ${employeeData[i].id}<br>
-          <span class="card-info">Email:</span> ${employeeData[i].email}<br>
-          <span class="card-info">Github Username:</span> @${employeeData[i].github}
+          <span class="card-info">Email:</span> <a href="mailto:${employeeData[i].email}">${employeeData[i].email}</a><br>
+          <span class="card-info">Github:</span> <a href="https://github.com/${employeeData[i].github}" target="_blank">${employeeData[i].github}</a>
         </p>
       </div>
       </div>
@@ -81,7 +81,7 @@ const generatePage = (employeeData) => {
         <h5 class="card-title">Intern</h5>
         <p class="card-text">
         <span class="card-info">Employee ID:</span> ${employeeData[i].id}<br>
-        <span class="card-info">Email:</span> ${employeeData[i].email}<br>
+        <span class="card-info">Email:</span> <a href="mailto:${employeeData[i].email}">${employeeData[i].email}</a><br>
         <span class="card-info"><i>Attending</span> <b>${employeeData[i].schoolName}</b></i>
         </p>
       </div>
