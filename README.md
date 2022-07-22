@@ -17,7 +17,10 @@
  - [Dependencies](#dependencies)
  - [Installation Instructions](#installing)
  - [Execution](#executing-program)
- - [Testing Demo](#testing)
+ - [Demos](#demos)
+    - [Jest Demo](#testing-demo)
+    - [Inquirer Demo](#inquirer-demo)
+    - [Link Demo](#link-demo)
  - [Inquirer Function Demo](#inquirer-demo)
  - [Authors](#authors)
  - [License](#license)
@@ -75,7 +78,9 @@ THEN I exit the application, and the HTML is generated
 * `npm run test` to run tests on `/lib` files
 * `node index.js` to initiate prompts
 
-### Testing
+## Demos
+
+### Testing Demo
 
 
 https://user-images.githubusercontent.com/100460009/180368055-c57711b8-8d38-4c30-856a-f265d5101c04.mp4
@@ -90,6 +95,15 @@ https://user-images.githubusercontent.com/100460009/180368101-42a507c3-a5f2-4631
 
 
 _______________________________________________________________
+
+### Link Demo
+
+
+https://user-images.githubusercontent.com/100460009/180372826-131c818f-31b3-40fb-afc3-fd07b8e9bdb3.mp4
+
+
+
+---------------------------------------------------------------
 
 ## Authors
 
