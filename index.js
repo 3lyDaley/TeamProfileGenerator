@@ -119,7 +119,6 @@ addEmployee()
 })
 .then(writeFileResponse => {
   console.log(writeFileResponse);
-  return copyFile();
 })
 .catch(err => {
   console.log(err);
